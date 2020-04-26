@@ -1,12 +1,27 @@
-#!/usr/bin/env python3
+from predefine import *
 
-import asyncio
-import websockets
+# def listen()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((socket.gethostname(), 3838))
+s.listen(1)
 
-async def echo(websocket, path):
-    async for message in websocket:
-        await websocket.send(message + '::FromServer')
+buff = 1024
 
-asyncio.get_event_loop().run_until_complete(
-    websockets.serve(echo, 'localhost', 8765))
-asyncio.get_event_loop().run_forever()
+while True:
+    client, address = s.accept()
+    print(f'connection from {address[0]}')
+    # Login procedure
+
+    file = open('illi.zip', 'wb')
+
+    while True:
+        chunk = client.recv(buff)
+        while chunk:
+            file.write(chunk)
+            chunk = client.recv(buff)
+        file.close()
+        break
+    client.close()
+    
+
+        

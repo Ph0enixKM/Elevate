@@ -1,7 +1,9 @@
 from simple_term_menu import TerminalMenu
+from alive_progress import alive_bar
 from printy import printy as log
 from printy import inputy as get
 import argparse
+import socket
 import json
 import time
 import sys

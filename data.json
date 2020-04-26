@@ -1,4 +1,6 @@
 {
     "name": "Pawel",
-    "kind": "Client"
+    "kind": "Server",
+    "port": 3838,
+    "service": "Yes"
 }
