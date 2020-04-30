@@ -7,7 +7,8 @@ echo "I'm about to send the files..."
     "addr": "localhost",
     "port": "3838",
     "path": ".",
-    "secret": ""
+    "secret": "123",
+    "compression": 5
 }
 <-- SERVER -->
 

@@ -5,9 +5,18 @@ from parser import Parser
 import configure as conf
 from predefine import * 
 import client
+import server
 
 # Global Variables
 data_path = os.path.join(exePath(), 'data.json')
+exec_path = os.path.join(exePath(), os.path.basename(sys.argv[0]))
+newnames = {
+    'local-root': '/tmp/elevate-project', 
+    'client': 'elevate-client.sh',
+    'server': 'elevate-server.sh',
+    'zip': 'dist.zip',
+    'dir' : 'dist'
+}
 
 def getData():
     '''Returns data JSON file if it's corrupted 
@@ -28,17 +37,25 @@ def getData():
             return 1
         return data
 
+# Message for other non-Linux kernel based systems
+if not (platform.system() == 'Linux'):
+    log('[y]Warning! Elevate detected this script is running on other kernel than Linux.')
+    log('[yD]It\'s highly recommended to change your OS to Linux based before proceeding.')
+    input('')
+
 try:
     # Get the executable data
     # so that elevate can proceed
     # with given tasks
     data = getData()
+    # Socket instance
+    s = None
     # Reconfigure Elevate
     if type(data) is int:
         if data == 0:
-            conf.configExec('init', data_path)
+            conf.configExec('init', data_path, exec_path)
         else:
-            conf.configExec('error', data_path)
+            conf.configExec('error', data_path, exec_path)
         sys.exit(0)
 
     # Available ops
@@ -75,10 +92,28 @@ try:
             log('[rD]    elevate init@')
             sys.exit(1)
         # Try to parse the file
-        with open('ele.vate', 'r') as File:
-            text = File.read()
+        with open('ele.vate', 'r') as file:
+            text = file.read()
             config = Parser(text).get()
-            client.clonePath(config)
+            client.clonePath(config, newnames)
+            log('[g]\n<-- Connecting with remote Elevate -->@\n')
+            s = client.connect(config['addr'], config['port'])
+            client.login(s, data, config)
+            log('[g]\n<-- Sending Project Files -->@\n')
+            zipFile = os.path.join(newnames['local-root'], newnames['zip'])
+            client.sendFiles(s, zipFile)
+            log('[g]\n<-- Running Server Script -->@\n')
+            client.waitForServer(s)
+    
+    if args.operation == 'serve':
+        s = server.listen(data)
+        while True:
+            client, addr = s.accept()
+            isAuth = server.auth(client, data)
+            if not isAuth:
+                continue
+            server.recvFiles(client, data, newnames)
+            server.unboxProject(client, data, newnames)
 
 
     # Initialize new project
@@ -89,7 +124,9 @@ try:
     # Configure Illiade
     # From scratch
     elif args.operation == 'config':
-        conf.configExec('none', data_path)
+        conf.configExec('none', data_path, exec_path)
+
+    
 
 except KeyboardInterrupt:
     log('\n\n[g]Bye... 👋@')

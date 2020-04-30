@@ -3,6 +3,7 @@ from alive_progress import alive_bar
 from printy import printy as log
 from printy import inputy as get
 import subprocess as process
+import platform
 import argparse
 import socket
 import json

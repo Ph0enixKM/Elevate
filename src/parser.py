@@ -41,7 +41,7 @@ class Parser:
         if (len(lex) < 4):
             log('[r]Bad config file contents@')
             log('[rD]Config file is too short@')
-            exit(-1)
+            sys.exit(1)
         # Iterate the lex
         for item in lex:
             # Next Phase
@@ -65,7 +65,7 @@ class Parser:
         if (len(config) < 2):
             log('[r]Bad config file contents@')
             log('[rD]Couldn\'t find config section@')
-            exit(-1)
+            sys.exit(1)
         # Load config to json
         conf = {}
         try:
@@ -73,7 +73,7 @@ class Parser:
         except ValueError:
             log('[r]Elevate failed to decode json in config file@')
             log('[rD]CONFIG\'s json data is written incorrectly@')
-            exit(-1)
+            sys.exit(1)
         conf['client-script'] = client
         conf['server-script'] = server
         return conf

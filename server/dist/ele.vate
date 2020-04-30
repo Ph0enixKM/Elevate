@@ -1,0 +1,17 @@
+<-- CLIENT -->
+
+echo "I'm about to send the files..."
+
+<-- CONFIG -->
+{
+    "addr": "localhost",
+    "port": "3838",
+    "path": ".",
+    "secret": "123",
+    "compression": 5
+}
+<-- SERVER -->
+
+echo "Installing packages here..."
+echo "Restarting service that runs the server..."
+

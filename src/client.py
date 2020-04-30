@@ -3,12 +3,13 @@ from predefine import *
 def connect(ip, port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        s.connect((ip, port))
+        s.connect((ip, int(port)))
         log('[n]Found Remote Elevate@')
         log('[nD]Connected to remote Elevate server@\n')
     except socket.error as message:
         log('[r]Elevate couldn\'t connect to the remote Elevate endpoint@')
         log(f'[rD]Log: {message}@')
+        sys.exit(1)
     return s
 
 
@@ -39,7 +40,7 @@ def login(s, data, config):
         log('[n]Remote Elevate greeted us 🤝@')
         log('[nD]Your name is on a whitelist@\n')
 
-def sendFile(s, path):
+def sendFiles(s, path):
     buff = 4096
     size = os.path.getsize(path)
     # Open and send file vin chunks
@@ -50,13 +51,68 @@ def sendFile(s, path):
                 bar('Sending Project to the server')
                 s.send(chunk)
                 chunk = file.read(buff)
+    code = 'EXIT'
+    s.send(f'FILE:{code:<4096}'.encode())
 
-def clonePath(config):
+def waitForServer(s):
+    msg = s.recv(55).decode()
+    if msg[:4] == 'ERRR':
+        log('[r]Remote Elevate sent us some error:@')
+        log(f'[rD]{msg.strip()}@')
+        sys.exit(1)
+    if msg[:4] == 'BASH':
+        bash = ''
+        while True:
+            msg = s.recv(55).decode()
+            if (msg[:9] == 'BASH:EXIT'):
+                break
+            bash += msg
+        log(bash)
+        log('\n\n[n]Done 🎉@')
+        log('[nD]Successfully deployed the project@')
+        
+
+
+def clonePath(config, newnames):
     path = os.path.abspath(config['path'])
     isdir = os.path.isdir(path)
     if not isdir:
         log('[r]Path must be pointing to a directory 📁@')
         log(f'[rD]It seems that path ({path}) is pointing to a file@')
+        sys.exit(1)
+    # Copy directory to the new place
+    if (os.path.exists(newnames['local-root'])):
+        process.call(['rm', '-rf', newnames['local-root']])
+    process.call(['cp', '-r', path, newnames['local-root']])
+
+    # Create a client and server script
+    clientp = os.path.join(newnames['local-root'], newnames['client'])
+    serverp = os.path.join(newnames['local-root'], newnames['server'])
+    if os.path.exists(clientp):
+        log('[r]There already exists file that looks like elevate client script@')
+        log('[rD]Remove file .$elevate$client.sh otherwise won\'t proceed@')
         sys.exit(-1)
-    # process.call(['cp', path, '#dist'])
+    if os.path.exists(serverp):
+        log('[r]There already exists file that looks like elevate server script@')
+        log('[rD]Remove file .$elevate$server.sh otherwise won\'t proceed@')
+        sys.exit(-1)
+    with open(clientp, 'w') as file:
+        file.write(config['client-script'])
+    file = open(serverp, 'w')
+    file.write(config['server-script'])
+    file.close()
+    process.call(['chmod', '777', clientp])
+    process.call(['chmod', '777', serverp])
+    log('[g]<-- Running Client Script -->@\n')
+    process.call(['/bin/bash', clientp])
+    log('\n[g]<-- Compressing Project -->@\n')
+    code = os.system(f'cd {newnames["local-root"]}; zip -{config["compression"]} -r {newnames["zip"]} *')
+    if code != 0:
+        log('[r]Couldn\'t zip project files@')
+        log('[rD]More details in Compressing Project phase@')
+        exit(1)
+    
+    
+
+
     

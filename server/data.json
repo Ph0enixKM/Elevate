@@ -1,0 +1,8 @@
+{
+    "name": "Pawel",
+    "kind": "Server",
+    "port": 3838,
+    "path": "/home/phoenix/Desktop/Projects/Elevate/server",
+    "secret": "123",
+    "service": "No"
+}
