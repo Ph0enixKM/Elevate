@@ -1,3 +1,5 @@
+
+
 <-- CLIENT -->
 
 echo "I'm about to send the files..."
@@ -14,4 +16,6 @@ echo "I'm about to send the files..."
 
 echo "Installing packages here..."
 echo "Restarting service that runs the server..."
+
+
 
