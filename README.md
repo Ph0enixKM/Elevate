@@ -27,7 +27,7 @@ For other platforms you can compile Elevate yourself, however it's really discou
 3. Grab the compiled binary from `bin/` directory
 
 <div align="center">
-   <img src="arts/elevate-arrow.jpg" width="200">
+   <img src="arts/elevate-arrow-header.png">
 </div>
 
 ## Usage
