@@ -3,9 +3,9 @@
 ###
 
 # Link to debian package download
-deb_download='https://github.com/Ph0enixKM/Illiade/releases/download/1.3.1b/illiade_1.3.1_64.deb'
+deb_download='https://github.com/Ph0enixKM/Elevate/releases/download/1.0.0b/elevate_1.0.0_64.deb'
 # Link to zip download
-zip_download='https://github.com/Ph0enixKM/Illiade/releases/download/1.3.1b/illiade-linux-1.3.1_64.zip'
+zip_download='https://github.com/Ph0enixKM/Elevate/releases/download/1.0.0b/elevate-linux-1.0.0_64.zip'
 # Ware name
 warename=Elevate
 # Version name
