@@ -6,7 +6,7 @@
 
 Elevate the deployer can help you automate the deploying process to a remote endpoint. Common usecase might be pushing project to the remote VPS server.
 
-## Instalation (Linux)
+## Installation (Linux)
 
 You can just grab elevate by pasting the following bash line to your terminal 📦
 
