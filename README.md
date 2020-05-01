@@ -6,13 +6,19 @@
 
 Elevate the deployer can help you automate deploying process to the remote endpoint. Common usecase might be pushing project to the remote VPS server.
 
-## Instalation
+## Instalation (Linux)
 
-You can just grab elevate (Linux)
+You can just grab elevate by pasting the followin bash line to your terminal 📦
 
 ```bash
 curl -s https://raw.githubusercontent.com/Ph0enixKM/Elevate/master/installer.sh | bash
 ```
+
+<div align="center">
+ <img src="arts/elevate-arrow-header.png">
+</div>
+
+## Compiling (MacOS/Windows)
 
 For other platforms you can compile Elevate yourself, however it's really discouraged. Elevate needs bash environment to run properly.
 
@@ -22,9 +28,7 @@ For other platforms you can compile Elevate yourself, however it's really discou
 
 3. Grab the compiled binary from `bin/` directory
 
-<div align="center">
-   <img src="arts/elevate-arrow-header.png">
-</div>
+
 
 ## Usage
 
@@ -44,15 +48,15 @@ elevate deploy
 elevate serve
 ```
 
-- Client
+- Client 🖥️
   
-  - `elevate` - will try to find the **ele.vate** file in current directory and push your project to the remote endpoint specified in the file (the same behavior: *elevate deploy*)
+  - `elevate` - will try to find the **ele.vate** file in current directory and push your project to the remote endpoint specified in the file (the same behavior: *elevate deploy*) 
   
-  - `elevate init` - will create **ele.vate** file in current directory and will ask you to specify remote endpoint (in order to connect to elevate with kind of **server**)
+  - `elevate init` - will create **ele.vate** file in current directory and will ask you to specify remote endpoint (in order to connect to elevate with kind of **server**) 
 
-- Server
+- Server 📡
   
-  - `elevate` - will serve and look for client connections on port specified in config. When connection is established - it will download new project and run it
+  - `elevate` - will serve and look for client connections on port specified in config. When connection is established - it will download new project and run it 
 
 ### Elevate project config file (.vate)
 
