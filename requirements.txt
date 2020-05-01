@@ -1,3 +1,4 @@
 websockets=8.1
 simple-term-menu=0.4.2
 printy=1.2.1
+pyinstaller=3.6

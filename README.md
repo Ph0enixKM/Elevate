@@ -4,11 +4,11 @@
 
 # Elevate
 
-Elevate the deployer can help you automate deploying process to the remote endpoint. Common usecase might be pushing project to the remote VPS server.
+Elevate the deployer can help you automate the deploying process to a remote endpoint. Common usecase might be pushing project to the remote VPS server.
 
 ## Instalation (Linux)
 
-You can just grab elevate by pasting the followin bash line to your terminal 📦
+You can just grab elevate by pasting the following bash line to your terminal 📦
 
 ```bash
 curl -s https://raw.githubusercontent.com/Ph0enixKM/Elevate/master/installer.sh | bash
@@ -24,15 +24,17 @@ For other platforms you can compile Elevate yourself, however it's really discou
 
 1. Download [source file](https://github.com/Ph0enixKM/Elevate/archive/master.zip)
 
-2. Run `./start.sh`
+2. Install required dependencies `pip install -r requirements.txt`
 
-3. Grab the compiled binary from `bin/` directory
+3. Run `./start.sh`
+
+4. Grab the compiled binary from `bin/` directory
 
 
 
 ## Usage
 
-When firstly run - elevate will as for the way you want to use it. For now there are 2 options available: *Client* and *Server*
+When firstly run - elevate will ask for the way you want to use it. For now there are 2 options available: *Client* and *Server*
 
 If you made a mistake when configuring Elevate, you can easily reconfigure it by running `elevate config`
 
@@ -56,7 +58,7 @@ elevate serve
 
 - Server 📡
   
-  - `elevate` - will serve and look for client connections on port specified in config. When connection is established - it will download new project and run it 
+  - `elevate` - will serve and look for client connections on port specified in config. When connection is established - it will download new project and run it (the same behavior: *elevate serve*)
 
 ### Elevate project config file (.vate)
 
@@ -71,8 +73,8 @@ Elevate project config file is divided into 3 parts.
 
 2. **Config** *(Json)* - here Elevate stores datailed information about what to upload and where to upload. Usually you don't have to edit this part of code, because project initing interface (`elevate init`) will prepare this part for you
 
-3. **Server** *(Bash)* - this section contains script that will be run after project is being pushed to the server and unzipped. You can here install dependencies and reload the server if you wish. **Don't** use any commands that require user input or else the remote elevate will kill that process and send you error that your script timed out. Once the script finnished running, you will see what it prompted.
+3. **Server** *(Bash)* - this section contains script that will be run after project is being pushed to the server and unzipped. You can here install dependencies and reload the server if you wish. **Don't** use any commands that require user input or else the remote elevate will kill that process and send you error that your script timed out. Once the script finished running, you will see what it prompted.
 
-> Useful note: when running the bash scripts your pwd is set to where the virual ele.vate (which is the ele.vate in the new project) is, which is assumed as a root of your entire project.
+> Useful note: when running the bash scripts your *pwd* is set to where the ele.vate is (which is the ele.vate in the new project). This file's directory is assumed as a root of your entire project.
 
 ![](arts/assembly-footer.png)
