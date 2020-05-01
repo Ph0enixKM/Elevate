@@ -71,4 +71,4 @@ Elevate project config file is divided into 3 parts.
 
 > Useful note: when running the bash scripts your pwd is set to where the virual ele.vate (which is the ele.vate in the new project) is, which is assumed as a root of your entire project.
 
-![](arts/assembly.png)
+![](arts/assembly-footer.png)
