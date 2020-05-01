@@ -70,3 +70,5 @@ Elevate project config file is divided into 3 parts.
 3. **Server** *(Bash)* - this section contains script that will be run after project is being pushed to the server and unzipped. You can here install dependencies and reload the server if you wish. **Don't** use any commands that require user input or else the remote elevate will kill that process and send you error that your script timed out. Once the script finnished running, you will see what it prompted.
 
 > Useful note: when running the bash scripts your pwd is set to where the virual ele.vate (which is the ele.vate in the new project) is, which is assumed as a root of your entire project.
+
+![](arts/assembly.png)
